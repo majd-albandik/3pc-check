@@ -14,7 +14,7 @@
                 (event) => {
                     if (
                         event.data.type !== 'initiateThirdPartyCookieCheck' &&
-                        !event.origin.startsWith('https://www.kaufland.')
+                        // !event.origin.startsWith('https://www.kaufland.')
                     ) {
                         return;
                     }
