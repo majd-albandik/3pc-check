@@ -12,10 +12,7 @@
                 'message',
 
                 (event) => {
-                    if (
-                        event.data.type !== 'initiateThirdPartyCookieCheck' &&
-                        // !event.origin.startsWith('https://www.kaufland.')
-                    ) {
+                    if (event.data.type !== 'initiateThirdPartyCookieCheck') {
                         return;
                     }
                     try {
