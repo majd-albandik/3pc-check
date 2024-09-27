@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Check Third-Party Cookies</title>
+    </head>
+    <body>
+        <h1>Checking Third-Party Cookies</h1>
+        <script>
+            window.addEventListener(
+                'message',
+
+                (event) => {
+                    if (
+                        event.data.type !== 'initiateThirdPartyCookieCheck' &&
+                        !event.origin.startsWith('https://www.kaufland.')
+                    ) {
+                        return;
+                    }
+                    try {
+                        document.cookie =
+                            'thirdPartyCookieTest=true; path=/;secure; SameSite=None';
+                        const result = document.cookie.includes(
+                            'thirdPartyCookieTest'
+                        );
+
+                        parent.postMessage(
+                            {
+                                type: 'thirdPartyCookiesEnabledCheckResult',
+                                result,
+                            },
+                            event.origin
+                        );
+                    } catch (e) {
+                        console.error('Error checking third-party cookies:', e);
+                    }
+                }
+            );
+        </script>
+    </body>
+</html>
